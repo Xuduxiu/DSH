@@ -1,0 +1,14 @@
+{
+  "name": "dsh-toolkit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portable DeepSeek Harness plugins: saturation research, multiview and visual themes.",
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node tools/check.mjs && node tools/test-host.mjs && node tools/test-client.mjs && node --test tools/install.test.mjs",
+    "install:plugins": "node scripts/install.mjs",
+    "check": "node scripts/install.mjs --check"
+  }
+}

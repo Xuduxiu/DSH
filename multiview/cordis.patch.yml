@@ -1,0 +1,8 @@
+# Multiview (三栏工作区)
+#
+# A pure Client bundle. The Host row exists only so the package has a mount
+# point, inventory metadata and a stable bundle id.
+
+- insert:
+    - id: multiview
+      name: '@local/dsh-multiview'

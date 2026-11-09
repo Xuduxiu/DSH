@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "title": "多栏工作区 · Multiview",
+    "description": "在主窗口内并排打开最多三个对话；双击左侧会话新增一栏，每栏可切换对话/轨迹，并可从顶栏关闭。"
+  },
+  "emptyTitle": "多栏工作区",
+  "emptyHint": "双击左侧任意会话，在当前窗口打开第二栏；单机切换当前栏。",
+  "openCurrent": "打开当前会话",
+  "closePane": "关闭此栏",
+  "showTrajectory": "显示轨迹",
+  "showChat": "显示对话",
+  "chat": "对话",
+  "trajectory": "轨迹",
+  "loading": "正在载入会话…",
+  "retainFailed": "无法载入会话：{message}",
+  "pane": "第 {n} 栏",
+  "mainTitle": "多栏工作区",
+  "active": "当前栏",
+  "noSession": "请在左侧选择或新建一个会话。"
+}

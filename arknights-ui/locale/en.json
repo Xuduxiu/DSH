@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Arknights UI · Visual Protocol",
+    "description": "Rhodes Island daylight, Rhodes Island night, and Endfield frosted glass for the whole Web interface."
+  },
+  "dockLabel": "THEME",
+  "dockOpen": "Open Visual Protocol",
+  "dockClose": "Collapse Visual Protocol",
+  "panelKicker": "VISUAL PROTOCOL",
+  "panelTitle": "Visual Protocol",
+  "panelHint": "Applies instantly and is remembered by this browser.",
+  "current": "Current",
+  "active": "Active",
+  "schemeLight": "Light",
+  "schemeDark": "Dark",
+  "day": "Rhodes Island · Day",
+  "dayDesc": "Warm archive paper, brass ticks, and a pale blueprint grid.",
+  "night": "Rhodes Island · Night",
+  "nightDesc": "Deep ink decks, amber signal lamps, and tactical scanlines.",
+  "glass": "Endfield · Protocol Glass",
+  "glassDesc": "Cold cyan haze, layered translucency, and refracted highlights.",
+  "settingsTitle": "Visual Protocol",
+  "settingsDesc": "Restyle the whole interface with an Arknights / Endfield visual language while every button and menu stays in place.",
+  "toggleSidebar": "Toggle sidebar"
+}

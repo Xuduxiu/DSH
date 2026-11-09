@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "title": "Multiview · Multi-pane workspace",
+    "description": "Open up to three conversations side by side in the main window. Double-click a session to add a pane, toggle each pane between chat and trajectory, and close it from the top bar."
+  },
+  "emptyTitle": "Multi-pane workspace",
+  "emptyHint": "Double-click any session on the left to open another pane. A single click navigates the focused pane.",
+  "openCurrent": "Open current session",
+  "closePane": "Close this pane",
+  "showTrajectory": "Show trajectory",
+  "showChat": "Show chat",
+  "chat": "Chat",
+  "trajectory": "Trajectory",
+  "loading": "Loading session…",
+  "retainFailed": "Could not load session: {message}",
+  "pane": "Pane {n}",
+  "mainTitle": "Multi-pane workspace",
+  "active": "Focused",
+  "noSession": "Choose or create a session on the left."
+}

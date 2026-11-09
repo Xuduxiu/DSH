@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "明日方舟 UI · 视觉协议",
+    "description": "罗德岛白昼、罗德岛黑夜与终末地协议玻璃三套全局界面外观。"
+  },
+  "dockLabel": "主题",
+  "dockOpen": "打开视觉协议",
+  "dockClose": "收起视觉协议",
+  "panelKicker": "VISUAL PROTOCOL",
+  "panelTitle": "视觉协议",
+  "panelHint": "选择后即时生效，并保存在当前浏览器。",
+  "current": "当前",
+  "active": "已启用",
+  "schemeLight": "浅色",
+  "schemeDark": "深色",
+  "day": "罗德岛 · 白昼",
+  "dayDesc": "暖白档案纸、黄铜刻度与浅色蓝图网格。",
+  "night": "罗德岛 · 黑夜",
+  "nightDesc": "深墨甲板、琥珀信号灯与战术扫描线。",
+  "glass": "终末地 · 协议玻璃",
+  "glassDesc": "冷青雾面、透视层叠与高光折射。",
+  "settingsTitle": "视觉协议",
+  "settingsDesc": "为整个界面切换明日方舟 / 终末地风格的外观；按键和菜单位置保持不变。",
+  "toggleSidebar": "侧边栏开关"
+}

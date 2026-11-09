@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.dsh/
+**/.credentials*
+**/credentials*
+**/sessions/
+**/storages/
+**/profiles/
+*.log
+*.key
+*.pem
+*.zip
+.DS_Store
+Thumbs.db
+.test-home/

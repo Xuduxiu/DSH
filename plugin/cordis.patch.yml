@@ -1,0 +1,10 @@
+# Saturation Research (饱和式科研) bundle layer.
+#
+# One row mounts the Host plugin: it owns the program, the routes, the task
+# forum service, the agent tools, and the `saturation` Session projection the
+# Web Client renders. The Client half ships in the same package and is served
+# from the `dsh.client` declaration in package.json.
+
+- insert:
+    - id: saturation
+      name: '@local/dsh-saturation'

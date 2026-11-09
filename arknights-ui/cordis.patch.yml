@@ -1,0 +1,9 @@
+# Arknights UI (明日方舟 / 终末地视觉协议)
+#
+# The Client half is shipped from the `dsh.client` declaration in
+# package.json. The Host row only exists so the bundle has a mount point and
+# its title, description and icon appear in the plugin inventory.
+
+- insert:
+    - id: arknights-ui
+      name: '@local/dsh-arknights-ui'
