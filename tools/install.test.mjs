@@ -42,7 +42,8 @@ test('copies into persistent home and preserves existing plugins; repeat install
   install(f)
   const saved = JSON.parse(readFileSync(join(f.profileDir, 'package.json')))
   assert.equal(saved.dependencies['existing-plugin'], '1.0.0')
-  assert.equal(saved.dsh.profile.bundles.length, 6)
+  assert.equal(saved.dsh.profile.bundles.length, 7)
+  assert.ok(saved.dsh.profile.bundles.includes('@local/dsh-oxford'))
   assert.ok(existsSync(join(result.destination, 'plugin', 'lib', 'state.js')))
 })
 

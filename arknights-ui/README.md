@@ -1,21 +1,22 @@
-# 明日方舟 / 终末地 · 视觉协议
+# 视觉协议 · 罗德岛、终末地与 xLab 控制台
 
 `@local/dsh-arknights-ui` is a persistent DSH Web Client plugin that restyles the
-**entire Harness interface** with an Arknights / Endfield visual language. It
+**entire Harness interface**, including the Oxford measurement workbench. It
 does not move or regroup existing buttons and menus: every treatment is a token
 remap plus a handful of purely decorative HUD layers, and the quick switcher
 lives in the frame-wide overlay at the right edge.
 
-## Three protocols
+## Four protocols
 
 | Protocol | Palette | Character |
 |---|---|---|
 | **罗德岛 · 白昼** (`day`) | warm archive paper, ink, brass | pale blueprint grid, paper grain, brass rules, light glass surfaces |
 | **罗德岛 · 黑夜** (`night`) | deep ink, bone, amber | tactical scanlines, amber signal accents, dark frosted panels |
 | **终末地 · 协议玻璃** (`glass`) | cold cyan, sea-green, brass | heavy backdrop blur, translucent nested surfaces, refracted light |
+| **xLab 控制台** (`xlab`) | Oxford Console Dark graphite, light violet, steel grey | opaque instrument panels, straight dividers, 03 CORE identity; orange is a warning colour |
 
 The default follows the operating-system color scheme on first use. A choice is
-saved in `localStorage` (`arknights-ui:theme`) for this browser. Selecting a
+saved in `localStorage` (`arknights-ui:theme`) for this browser. Updating preserves existing `day`, `night` and `glass` choices; it does not force the new theme. Selecting a
 protocol also aligns the stock Appearance preference to `light` or `dark`, so the
 Host-managed palette and the plugin's layer cannot drift apart.
 
@@ -35,10 +36,16 @@ Host-managed palette and the plugin's layer cannot drift apart.
 ## Quick switcher
 
 The vertical **主题** tab sits at the frame's right edge, vertically centered.
-Clicking it opens a 306px protocol card with three live previews. The switcher is
+Clicking it opens a 306px protocol card with four live previews. The switcher is
 registered in `shell.overlay`, which is click-through by default; only the tab and
 the panel opt back into pointer events. It never displaces an existing control.
-The same three choices appear in **Settings → General → 视觉协议**.
+The same four choices appear in **Settings → General → 视觉协议**, including when multiview hides the floating dock. Keyboard users can Tab to each choice and use Enter or Space. Escape closes the dock and returns focus to its tab.
+
+## A shared theme for plugin workspaces
+
+The document element carries `data-arknights-theme="day|night|glass|xlab"`. All descendants inherit the active palette; consumers need no setting or persistence of their own. For example, use `var(--ark-ink, var(--dsw-alias-label-primary))` for text. Other shared roles include `--ark-base`, `--ark-layer1`, `--ark-layer2`, `--ark-ink2`, `--ark-line3`, `--ark-accent`, `--ark-brand-ink`, `--ark-warn` and `--ark-danger`. A component that draws onto a canvas can observe that root attribute with `MutationObserver`. Unloading the theme bundle removes it; retain a DSH/native fallback.
+
+The xLab appearance uses the existing Oxford 03 CORE vector and the xLab R1 Console Dark palette. It uses installed font fallbacks; it does not install fonts or require network assets.
 
 ## Install
 

@@ -1,11 +1,12 @@
 /**
  * Arknights UI — Web Client half.
  *
- * Three complete visual protocols for the Harness Web GUI:
+ * Four visual protocols for the Harness Web GUI:
  *
  *   day    Rhodes Island daylight — warm archive paper, brass, blueprint grid.
  *   night  Rhodes Island night    — ink decks, amber signals, tactical scans.
  *   glass  Endfield protocol glass — cold cyan translucency and refracted light.
+ *   xlab   xLab Console Dark — graphite panels, violet selection, 03 CORE.
  *
  * The plugin owns a global token layer (so every shipped component follows),
  * a persistent theme store, a frame-wide switcher, and one General-settings
@@ -50,6 +51,13 @@ window.__ModuleLoader__.load({
         schemeKey: 'schemeDark',
         glyph: '◇',
       },
+      {
+        id: 'xlab',
+        code: 'XLAB / CORE 03',
+        nameKey: 'xlab',
+        descKey: 'xlabDesc',
+        schemeKey: 'schemeDark',
+      },
     ]
     const THEME_IDS = THEMES.map((theme) => theme.id)
 
@@ -91,8 +99,10 @@ window.__ModuleLoader__.load({
       nightDesc: '深墨甲板、琥珀信号灯与战术扫描线。',
       glass: '终末地 · 协议玻璃',
       glassDesc: '冷青雾面、透视层叠与高光折射。',
+      xlab: 'xLab 控制台',
+      xlabDesc: '石墨面板、清晰刻度与技术紫选中态。',
       settingsTitle: '视觉协议',
-      settingsDesc: '为整个界面切换明日方舟 / 终末地风格的外观；按键和菜单位置保持不变。',
+      settingsDesc: '选择 DSH 和测量工作台共同使用的外观。',
       toggleSidebar: '侧边栏开关',
     }
     const en = {
@@ -112,8 +122,10 @@ window.__ModuleLoader__.load({
       nightDesc: 'Deep ink decks, amber signal lamps, and tactical scanlines.',
       glass: 'Endfield · Protocol Glass',
       glassDesc: 'Cold cyan haze, layered translucency, and refracted highlights.',
+      xlab: 'xLab Console',
+      xlabDesc: 'Graphite panels, crisp rules and violet selection.',
       settingsTitle: 'Visual Protocol',
-      settingsDesc: 'Restyle the whole interface with an Arknights / Endfield visual language while every button and menu stays in place.',
+      settingsDesc: 'Choose the appearance shared by DSH and the measurement workbench.',
       toggleSidebar: 'Toggle sidebar',
     }
 
@@ -331,6 +343,68 @@ html[data-arknights-theme="glass"] {
     repeating-linear-gradient(90deg, var(--ark-grid) 0 1px, transparent 1px 10px),
     linear-gradient(135deg, transparent 0 49.9%, var(--ark-diag) 49.9% 50.1%, transparent 50.1%);
   --ark-bg-size: auto, auto, auto, auto, auto, auto, auto, 220px 220px;
+}
+
+/* xLab R1 / Oxford Console Dark. Colours are physical surface roles, not
+   simulated instrument state. Other bundles consume them through CSS. */
+html[data-arknights-theme="xlab"] {
+  color-scheme: dark;
+  --ark-font: "Noto Sans SC", "Microsoft YaHei UI", "PingFang SC", "Segoe UI", sans-serif;
+  --ark-mono: "Source Code Pro", "Cascadia Mono", Consolas, monospace;
+  --ark-base: #0c0e11;
+  --ark-veil: #0c0e11;
+  --ark-sidebar: #14171c;
+  --ark-layer1: #14171c;
+  --ark-layer2: #1c2027;
+  --ark-layer3: #252b34;
+  --ark-overlay: #1c2027;
+  --ark-module: #1c2027;
+  --ark-menu: #14171c;
+  --ark-menu-solid: #14171c;
+  --ark-field: #0c0e11;
+  --ark-composer: #14171c;
+  --ark-composer-top: #14171c;
+  --ark-dialog: #14171c;
+  --ark-ink: #f5f6f7;
+  --ark-ink2: #b7bdc8;
+  --ark-ink3: #8c94a3;
+  --ark-ink4: #8c94a3;
+  --ark-line: #313742;
+  --ark-line2: #424955;
+  --ark-line3: #788598;
+  --ark-accent: #c39bff;
+  --ark-accent2: #d2b3ff;
+  --ark-accent3: #c39bff;
+  --ark-accent-soft: #30233e;
+  --ark-accent-glow: transparent;
+  --ark-danger: #ff8585;
+  --ark-danger-soft: #40282a;
+  --ark-success: #66dbc3;
+  --ark-success-soft: #173831;
+  --ark-warn: #f28c28;
+  --ark-warn-soft: #392b20;
+  --ark-brand: #c39bff;
+  --ark-brand-hover: #d2b3ff;
+  --ark-brand-ink: #0c0e11;
+  --ark-bubble: #1c2027;
+  --ark-bubble2: #30233e;
+  --ark-code: #0c0e11;
+  --ark-code-banner: #1c2027;
+  --ark-inline-code: #30233e;
+  --ark-selection: #49345f;
+  --ark-scroll: #788598;
+  --ark-highlight: transparent;
+  --ark-shadow: rgba(0,0,0,.36);
+  --ark-tooltip: #252b34;
+  --ark-tooltip-ink: #f5f6f7;
+  --ark-toast: #1c2027;
+  --ark-toast-ink: #f5f6f7;
+  --ark-skeleton: #252b34;
+  --ark-grid: #1c2027;
+  --ark-grid-major: #313742;
+  --ark-diag: transparent;
+  --ark-bg-art: none;
+  --ark-bg-size: auto;
 }
 
 /* ==================================================================
@@ -1852,6 +1926,77 @@ body:has([role="dialog"]:not([hidden]), [role="alertdialog"]:not([hidden])) .ark
 /* ==================================================================
    MOTION / RESPONSIVE
    ================================================================== */
+.ark-thumb[data-theme="xlab"], .ark-setting-swatch[data-theme="xlab"] {
+  display: grid; place-items: center;
+  background: #14171c; color: #c39bff; border-color: #788598;
+}
+.ark-thumb[data-theme="xlab"]::before, .ark-thumb[data-theme="xlab"]::after,
+.ark-setting-swatch[data-theme="xlab"]::before { content: none; }
+.ark-core03 { display: block; width: 24px; height: 21px; flex: none; }
+.ark-thumb .ark-core03 { width: 32px; height: 28px; }
+
+/* Console Dark is a flat instrument surface. Override the other protocols'
+   materials without moving controls or changing the user's DSH layout. */
+html[data-arknights-theme="xlab"] body {
+  --dsw-font-family: var(--ark-font);
+  --ds-font-family-code: var(--ark-mono);
+  --dsw-radius-md: 2px; --dsw-radius-lg: 2px;
+  --dsw-radius-xl: 2px; --dsw-radius-panel: 2px;
+  --dsw-menu-backdrop-filter: none;
+}
+html[data-arknights-theme="xlab"] body::before,
+html[data-arknights-theme="xlab"] #root > div::after,
+html[data-arknights-theme="xlab"] [data-composer-card]::before,
+html[data-arknights-theme="xlab"] [data-composer-card]::after,
+html[data-arknights-theme="xlab"] [class*="_newSession"]::after,
+html[data-arknights-theme="xlab"] .ark-panel::before { content: none; }
+html[data-arknights-theme="xlab"] :is([class*="_sidebarCol"], [class*="_rightbarCol"]) {
+  background: var(--ark-sidebar) !important; box-shadow: none;
+}
+html[data-arknights-theme="xlab"] [class*="_composerHero"]::before {
+  content: "xLab   /   CONSOLE";
+  color: var(--ark-ink2); font: 500 12px/1.5 var(--ark-mono);
+  letter-spacing: .10em; opacity: 1;
+}
+html[data-arknights-theme="xlab"] :is([class*="_header_"], [class*="_header"]:has(> [data-conversation-tabs]), [data-composer-card]) {
+  background: var(--ark-layer1) !important; box-shadow: none !important;
+}
+html[data-arknights-theme="xlab"] [role="dialog"],
+html[data-arknights-theme="xlab"] [role="alertdialog"],
+html[data-arknights-theme="xlab"] .ark-panel {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+html[data-arknights-theme="xlab"] :is(.ark-panel, .ark-card, .ark-setting-option, .ark-tab, .ark-panel-sigil) {
+  background: var(--ark-layer1); border-radius: 2px; clip-path: none;
+}
+html[data-arknights-theme="xlab"] :is(.ark-card,.ark-setting-option)[aria-pressed="true"] {
+  color: var(--ark-accent); background: var(--ark-accent-soft); border-color: var(--ark-accent);
+}
+html[data-arknights-theme="xlab"] :is(.ark-card,.ark-setting-option):hover {
+  background: var(--ark-layer2); border-color: var(--ark-accent); transform: none;
+}
+html[data-arknights-theme="xlab"] .ark-card-name,
+html[data-arknights-theme="xlab"] .ark-setting-name { font-size: 14px; }
+html[data-arknights-theme="xlab"] :is(.ark-card-desc,.ark-card-code,.ark-setting-code,.ark-setting-badge,.ark-panel-kicker,.ark-panel-sub) {
+  font-size: 12px; line-height: 1.4; letter-spacing: .02em;
+}
+html[data-arknights-theme="xlab"] :is(.ark-close,.ark-setting-option,.ark-card) { min-height: 40px; }
+html[data-arknights-theme="xlab"] .ark-close { min-width: 40px; }
+html[data-arknights-theme="xlab"] :is(button,a,input,select,textarea,[tabindex="0"]):focus-visible {
+  outline: 2px solid var(--ark-accent) !important; outline-offset: -2px;
+}
+html[data-arknights-theme="xlab"] .ark-tab-mark { animation: none; }
+html[data-arknights-theme="xlab"] [class*="_brandMark"] { filter: none; }
+html[data-arknights-theme="xlab"] :is(textarea,select,input:not([type="checkbox"]):not([type="radio"]):not([type="range"])) {
+  border-color: var(--ark-line3) !important;
+}
+html[data-arknights-theme="xlab"] :is([class*="_newSession"],[data-chat-flow-kind="turn-trigger"]) {
+  background: var(--ark-layer2) !important;
+}
+html[data-arknights-theme="xlab"] [class*="_tabActive"]::after { box-shadow: none; }
+html[data-arknights-theme="xlab"] ::-webkit-scrollbar-thumb { background: var(--ark-scroll); }
+html[data-arknights-theme="xlab"] button:not(:disabled):active { transform: none; }
+
 @keyframes ark-panel-in {
   from { opacity: 0; transform: translateX(8px) scale(.985); }
   to { opacity: 1; transform: translateX(0) scale(1); }
@@ -1984,14 +2129,26 @@ body:has([role="dialog"]:not([hidden]), [role="alertdialog"]:not([hidden])) .ark
     // ------------------------------------------------------------------
     // Components
     // ------------------------------------------------------------------
+    // The existing, approved 03 CORE vector, with its original negative spaces.
+    // Render locally so selecting the protocol never fetches an external asset.
+    function core03() {
+      return h('svg', { viewBox: '0 0 1000 866.025403784', className: 'ark-core03', focusable: false, 'aria-hidden': true },
+        h('path', { fill: 'currentColor', fillRule: 'evenodd',
+          d: 'M1000 866.025403784 500 0 0 866.025403784Z M500 24 512 44.784609691 512 332.553755053 718 689.356221412 967.215390309 833.240794094 979.215390309 854.025403784 955.215390309 854.025403784 706 710.140831103 294 710.140831103 44.784609691 854.025403784 20.784609691 854.025403784 32.784609691 833.240794094 282 689.356221412 488 332.553755053 488 44.784609691Z M415 626.425042071 585 626.425042071 500 479.200723427Z' }))
+    }
     function swatch(theme, className) {
-      return h('span', { className, 'data-theme': theme.id, 'aria-hidden': 'true' })
+      return h('span', { className, 'data-theme': theme.id, 'aria-hidden': 'true' }, theme.id === 'xlab' ? core03() : null)
     }
 
     function ThemeDock({ t, toggleSidebar }) {
       const active = useActiveTheme()
       const [open, setOpen] = useState(false)
       const rootRef = useRef(null)
+      const tabRef = useRef(null)
+      const closePanel = () => {
+        setOpen(false)
+        tabRef.current?.focus()
+      }
       const tr = useCallback((key) => localized(t, key), [t])
       const current = THEMES.find((theme) => theme.id === active) ?? THEMES[0]
 
@@ -2002,7 +2159,7 @@ body:has([role="dialog"]:not([hidden]), [role="alertdialog"]:not([hidden])) .ark
           setOpen(false)
         }
         const onKeyDown = (event) => {
-          if (event.key === 'Escape') setOpen(false)
+          if (event.key === 'Escape' && !event.defaultPrevented) closePanel()
         }
         document.addEventListener('pointerdown', onPointerDown, true)
         document.addEventListener('keydown', onKeyDown)
@@ -2020,6 +2177,7 @@ body:has([role="dialog"]:not([hidden]), [role="alertdialog"]:not([hidden])) .ark
             'button',
             {
               key: 'tab',
+              ref: tabRef,
               type: 'button',
               className: 'ark-tab',
               'aria-expanded': open,
@@ -2038,7 +2196,7 @@ body:has([role="dialog"]:not([hidden]), [role="alertdialog"]:not([hidden])) .ark
           open
             ? h('div', { key: 'panel', className: 'ark-panel', role: 'group', 'aria-label': tr('panelTitle') }, [
                 h('div', { className: 'ark-panel-head', key: 'head' }, [
-                  h('span', { className: 'ark-panel-sigil', key: 'sigil', 'aria-hidden': 'true' }, 'R'),
+                  h('span', { className: 'ark-panel-sigil', key: 'sigil', 'aria-hidden': 'true' }, active === 'xlab' ? core03() : 'R'),
                   h('div', { className: 'ark-panel-titles', key: 'titles' }, [
                     h('div', { className: 'ark-panel-kicker', key: 'kicker' }, tr('panelKicker')),
                     h('div', { className: 'ark-panel-title', key: 'title' }, tr('panelTitle')),
@@ -2056,7 +2214,7 @@ body:has([role="dialog"]:not([hidden]), [role="alertdialog"]:not([hidden])) .ark
                       className: 'ark-close',
                       'aria-label': tr('dockClose'),
                       title: tr('dockClose'),
-                      onClick: () => setOpen(false),
+                      onClick: closePanel,
                     },
                     '×',
                   ),
@@ -2211,6 +2369,16 @@ body:has([role="dialog"]:not([hidden]), [role="alertdialog"]:not([hidden])) .ark
           media.addEventListener('change', onChange)
           return () => media.removeEventListener('change', onChange)
         }, 'arknights-ui: system scheme')
+
+        ctx.effect(() => {
+          const onStorage = (event) => {
+            if (event.key !== STORAGE_KEY && event.key !== null) return
+            const storedTheme = readStoredTheme()
+            chooseTheme(storedTheme ?? systemTheme(), { persist: false })
+          }
+          window.addEventListener('storage', onStorage)
+          return () => window.removeEventListener('storage', onStorage)
+        }, 'arknights-ui: other windows')
 
         ctx.on('theme/change', (snapshot) => {
           const scheme = snapshot?.active?.colorScheme

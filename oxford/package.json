@@ -1,0 +1,11 @@
+{
+  "name": "@local/dsh-oxford",
+  "version": "1.0.0",
+  "description": "Oxford measurement workspace and local instrument bridge for DeepSeek Harness",
+  "private": true, "type": "module", "license": "MIT", "icon": "./icon.svg",
+  "exports": {".": "./index.js", "./client": "./client.js", "./package.json": "./package.json"},
+  "dsh": {
+    "bundle": {"patch": "./cordis.patch.yml"},
+    "client": {"platform": "web", "immediately": true, "inject": ["@deepseek-ai/dsh-client-ui-layout","@deepseek-ai/dsh-client-ui-sidebar"]}
+  }
+}

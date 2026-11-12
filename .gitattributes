@@ -1,3 +1,5 @@
 * text=auto eol=lf
 *.cmd text eol=crlf
 *.ps1 text eol=crlf
+# Unified diffs require a leading space even on empty context lines.
+native/*.patch text eol=lf whitespace=-blank-at-eol

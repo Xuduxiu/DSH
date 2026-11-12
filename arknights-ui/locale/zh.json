@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "明日方舟 UI · 视觉协议",
-    "description": "罗德岛白昼、罗德岛黑夜与终末地协议玻璃三套全局界面外观。"
+    "title": "视觉协议 · DSH 主题",
+    "description": "罗德岛白昼、罗德岛黑夜、终末地协议玻璃和 xLab 控制台四套全局外观。"
   },
   "dockLabel": "主题",
   "dockOpen": "打开视觉协议",
@@ -19,7 +19,9 @@
   "nightDesc": "深墨甲板、琥珀信号灯与战术扫描线。",
   "glass": "终末地 · 协议玻璃",
   "glassDesc": "冷青雾面、透视层叠与高光折射。",
+  "xlab": "xLab 控制台",
+  "xlabDesc": "石墨面板、清晰刻度与技术紫选中态。",
   "settingsTitle": "视觉协议",
-  "settingsDesc": "为整个界面切换明日方舟 / 终末地风格的外观；按键和菜单位置保持不变。",
+  "settingsDesc": "选择 DSH 和测量工作台共同使用的外观。",
   "toggleSidebar": "侧边栏开关"
 }

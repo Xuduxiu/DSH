@@ -1,0 +1,127 @@
+diff --git a/Oxford/Program.cs b/Oxford/Program.cs
+--- a/Oxford/Program.cs
++++ b/Oxford/Program.cs
+@@ -28,8 +28,14 @@
+             };
+             try
+             {
++                bool dshBridge = args.Contains("--dsh-stdio");
++                if(dshBridge && (!Console.IsInputRedirected || !Console.IsOutputRedirected || capture))
++                    throw new ArgumentException("DSH 连接需要专属的输入输出管道。");
++                if(dshBridge && System.Diagnostics.Process.GetProcessesByName("Oxford").Length > 1)
++                { Environment.ExitCode=2; return; }
+                 if (capture && output == null) throw new ArgumentException("--ui-check 后必须提供输出目录。");
+                 var form = new MainWindow(!args.Contains("--connect") || args.Contains("--offline") || capture, capture);
++                if(dshBridge) form.Shown += (s,e) => form.StartDshBridge();
+                 if (capture)
+                 {
+                     form.StartPosition=FormStartPosition.Manual; form.Location=new Point(-30000,-30000); form.ShowInTaskbar=false;
+diff --git a/Oxford/Oxford_GE.csproj b/Oxford/Oxford_GE.csproj
+--- a/Oxford/Oxford_GE.csproj
++++ b/Oxford/Oxford_GE.csproj
+@@ -77,6 +77,7 @@
+     <Reference Include="System" />
+     <Reference Include="System.Core" />
+     <Reference Include="System.Runtime.Serialization" />
++    <Reference Include="System.Web.Extensions" />
+     <Reference Include="System.Design" />
+     <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+       <HintPath>..\packages\System.Drawing.Common.4.7.2\lib\net461\System.Drawing.Common.dll</HintPath>
+@@ -107,6 +108,7 @@
+     <Compile Include="UI\XLab\*.cs" />
+     <Compile Include="Instruments\*.cs" />
+     <Compile Include="MainWindow.Instruments.cs" />
++    <Compile Include="MainWindow.DshBridge.cs" />
+     <Compile Include="Device\Assets\OE2012.cs" />
+     <Compile Include="Device\OE2012VisaTransport.cs" />
+     <Compile Include="MainWindow.XLab.cs" Condition="Exists('MainWindow.XLab.cs')">
+diff --git a/Oxford/Properties/AssemblyInfo.cs b/Oxford/Properties/AssemblyInfo.cs
+--- a/Oxford/Properties/AssemblyInfo.cs
++++ b/Oxford/Properties/AssemblyInfo.cs
+@@ -33,4 +33,4 @@
+ //通过使用 "*"，如下所示:
+ // [assembly: AssemblyVersion("1.0.*")]
+ [assembly: AssemblyVersion("1.0.0.0")]
+-[assembly: AssemblyFileVersion("1.3.0.0")]
++[assembly: AssemblyFileVersion("1.3.1.0")]
+diff --git a/Oxford/UI/XLab/XLabPalette.cs b/Oxford/UI/XLab/XLabPalette.cs
+--- a/Oxford/UI/XLab/XLabPalette.cs
++++ b/Oxford/UI/XLab/XLabPalette.cs
+@@ -64,6 +64,46 @@
+             DisabledSurface = Hex("1C2027"), DisabledText = Hex("8C94A3")
+         };
+ 
++        // Values mirror arknights-ui/client.js. WinForms uses opaque surfaces:
++        // alpha layers, separators and selections are composited on the protocol base.
++        // Keep the standalone Light and Dark instances unchanged.
++        private static XLabPalette Protocol(string name, bool dark, string canvas, string panel, string raised,
++            string ink, string secondary, string muted, string rule, string border, string selection,
++            string brand, string onBrand, string accent, string hover, string pressed,
++            string warning, string success, string error)
++        {
++            return new XLabPalette {
++                Name=name, IsDark=dark, Canvas=Hex(canvas), Panel=Hex(panel), Raised=Hex(raised),
++                TextPrimary=Hex(ink), TextSecondary=Hex(secondary), TextMuted=Hex(muted),
++                Separator=Hex(rule), BorderStrong=Hex(border), Selected=Hex(selection),
++                Interactive=Hex(brand), OnInteractive=Hex(onBrand), FocusRing=Hex(accent),
++                InteractiveHover=Hex(hover), InteractivePressed=Hex(pressed), Warning=Hex(warning),
++                Success=Hex(success), Error=Hex(error), DisabledSurface=Hex(raised), DisabledText=Hex(muted)
++            };
++        }
++        private static readonly XLabPalette RhodesDay=Protocol("罗德岛白昼",false,
++            "E8E4D8","F7F4ED","F1EDE3","171D1C","45514D","6C7772","C2C0B6","ADACA3","BFCAC2",
++            "1B2422","F8F5EB","A67A2B","33403C","101917","A46721","3E7754","A13D3D");
++        private static readonly XLabPalette RhodesNight=Protocol("罗德岛黑夜",true,
++            "090C0E","13181A","192022","E9E3D4","B7B9AF","858E8A","31312E","474640","3E341E",
++            "E7E0CC","0A0E10","D4A64A","FFF7E6","C9C1AF","D09745","67B884","DD6B5B");
++        private static readonly XLabPalette EndfieldGlass=Protocol("终末地玻璃",true,
++            "061014","0C1A1E","122226","E6F7F2","A9CAC5","7FA6A2","243A3C","355353","1E4443",
++            "67E0CF","04110F","67E0CF","8EF0E2","4CC0B0","E0B25D","71D9AC","E28173");
++        private static readonly XLabPalette ConsoleDsh=Protocol("xLab 控制台",true,
++            "0C0E11","14171C","1C2027","F5F6F7","B7BDC8","8C94A3","424955","788598","49345F",
++            "C39BFF","0C0E11","C39BFF","D2B3FF","B48BEF","F28C28","66DBC3","FF8585");
++        internal static XLabPalette ForDsh(string id)
++        {
++            switch(id) {
++                case "day": return RhodesDay;
++                case "night": return RhodesNight;
++                case "glass": return EndfieldGlass;
++                case "xlab": return ConsoleDsh;
++                default: return null;
++            }
++        }
++
+         private static Color Hex(string value)
+         {
+             return ColorTranslator.FromHtml("#" + value);
+diff --git a/Oxford/UI/XLab/XLabTheme.cs b/Oxford/UI/XLab/XLabTheme.cs
+--- a/Oxford/UI/XLab/XLabTheme.cs
++++ b/Oxford/UI/XLab/XLabTheme.cs
+@@ -22,6 +22,8 @@
+         private static readonly FontFamily MonoFamily;
+         private const uint PrivateFontResource = 0x10;
+         public static XLabPalette Current { get; private set; } = XLabPalette.Light;
++        // Set only by the explicitly requested DSH stdio session, on the UI thread.
++        internal static XLabPalette HostPalette { get; set; }
+         public static event EventHandler ThemeChanged;
+ 
+         [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+@@ -95,13 +97,16 @@
+ 
+         public static void SetTheme(bool dark)
+         {
+-            Current = dark ? XLabPalette.Dark : XLabPalette.Light;
++            Current = HostPalette ?? (dark ? XLabPalette.Dark : XLabPalette.Light);
++            dark = Current.IsDark;
+             var skin = MaterialSkinManager.Instance;
+             skin.EnforceBackcolorOnAllComponents = false;
+             skin.Theme = dark ? MaterialSkinManager.Themes.DARK : MaterialSkinManager.Themes.LIGHT;
+             // MaterialSkin 2.3.1 exposes Color (not integer) constructor overloads.
++            var onBrand = HostPalette == null ? (dark ? TextShade.WHITE : TextShade.BLACK)
++                : (Current.OnInteractive.GetBrightness() > .5f ? TextShade.WHITE : TextShade.BLACK);
+             skin.ColorScheme = new ColorScheme(Current.Interactive, Current.Canvas, Current.Raised,
+-                Current.Interactive, dark ? TextShade.WHITE : TextShade.BLACK);
++                Current.Interactive, onBrand);
+             var changed = ThemeChanged;
+             if (changed != null) changed(null, EventArgs.Empty);
+         }

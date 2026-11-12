@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Arknights UI · Visual Protocol",
-    "description": "Rhodes Island daylight, Rhodes Island night, and Endfield frosted glass for the whole Web interface."
+    "title": "Visual Protocol · DSH Themes",
+    "description": "Four global themes: Rhodes Island Day, Rhodes Island Night, Endfield Glass and xLab Console."
   },
   "dockLabel": "THEME",
   "dockOpen": "Open Visual Protocol",
@@ -19,7 +19,9 @@
   "nightDesc": "Deep ink decks, amber signal lamps, and tactical scanlines.",
   "glass": "Endfield · Protocol Glass",
   "glassDesc": "Cold cyan haze, layered translucency, and refracted highlights.",
+  "xlab": "xLab Console",
+  "xlabDesc": "Graphite panels, crisp rules and violet selection.",
   "settingsTitle": "Visual Protocol",
-  "settingsDesc": "Restyle the whole interface with an Arknights / Endfield visual language while every button and menu stays in place.",
+  "settingsDesc": "Choose the appearance shared by DSH and the measurement workbench.",
   "toggleSidebar": "Toggle sidebar"
 }

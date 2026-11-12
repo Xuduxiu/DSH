@@ -50,7 +50,7 @@ dsh web
 
 ## 使用插件管理界面安装
 
-也可以在 DSH 的 Plugins 页面或 Creator 工具 `plugin_manager` 中逐个安装这三个插件目录：`plugin`、`arknights-ui`、`multiview`。**仓库根目录不是一个插件 bundle**，不能直接当成单插件安装。
+也可以在 DSH 的 Plugins 页面或 Creator 工具 `plugin_manager` 中逐个安装这四个插件目录：`plugin`、`arknights-ui`、`multiview`、`oxford`。**仓库根目录不是一个插件 bundle**，不能直接当成单插件安装。
 
 界面安装本地目录可能采用链接，此时应保留目录。Windows 自动安装器已为你处理永久副本，优先使用 `install.cmd`。
 
@@ -60,14 +60,14 @@ dsh web
 
 ```powershell
 $DshCli = Join-Path $env:LOCALAPPDATA 'Programs\DeepSeek Harness\resources\runtime\cli\bin\dsh.cmd'
-& $DshCli plugin --profile desktop remove '@local/dsh-saturation' '@local/dsh-multiview' '@local/dsh-arknights-ui'
+& $DshCli plugin --profile desktop remove '@local/dsh-saturation' '@local/dsh-multiview' '@local/dsh-arknights-ui' '@local/dsh-oxford'
 ```
 
 如使用自定义 `DSH_HOME`，先在当前终端设好对应环境变量。Web profile 将命令中的 `desktop` 替换为 `web`。也可以在 Plugins 页面逐项关闭或移除。卸载不会删除会话或科研论坛数据。
 
 ## 失败与恢复
 
-安装器仅在成功核对所有插件后打印 `Installed 3 plugins`。非零退出码表示安装未完成；先阅读错误及日志路径。保留错误信息，不要把“依赖安装成功”当成三个插件全部生效。
+安装器仅在成功核对所有插件后打印 `Installed 4 plugins`。非零退出码表示安装未完成；先阅读错误及日志路径。保留错误信息，不要把“依赖安装成功”当成四个插件全部生效。
 
 安装前已有的以下文件会备份到提示目录：`package.json`、`pnpm-lock.yaml`、`pnpm-workspace.yaml`、`cordis.patch.yml`。备份可能包含个人路径和设置，只保留本地。
 
@@ -76,7 +76,7 @@ $DshCli = Join-Path $env:LOCALAPPDATA 'Programs\DeepSeek Harness\resources\runti
 3. 用同一 DSH CLI 执行 `dsh plugin --profile <profile> install`，重建备份配置的包链接。
 4. 重启并核对 Plugins 页面。不要清除 `.dsh/sessions`、`.dsh/storages` 或凭据文件。
 
-若这是全新 profile，没有安装前的 manifest，则备份目录可能为空。此时使用插件管理命令移除这三个包，或另选全新的隔离 Home 重试；不要将空备份视为完整回滚。
+若这是全新 profile，没有安装前的 manifest，则备份目录可能为空。此时使用插件管理命令移除这四个包，或另选全新的隔离 Home 重试；不要将空备份视为完整回滚。
 
 安装后的副本以内容哈希隔离。不要修改 `toolkit/versions` 内文件；修改仓库源码后重新运行安装器，会建立新的版本目录。旧目录保留，不自动删除。
 
@@ -85,7 +85,9 @@ $DshCli = Join-Path $env:LOCALAPPDATA 'Programs\DeepSeek Harness\resources\runti
 - **找不到 DSH**：确认已安装桌面版，或传入 `-DesktopExecutable`。
 - **提示先初始化**：在目标 Home 中打开桌面版一次，再从托盘退出。
 - **提示仍在运行**：托盘菜单选择退出；关闭窗口不足以停止程序。
-- **看不到新主题或多栏**：重启 DSH，刷新页面，检查 Plugins 三个包都已启用。
+- **看不到新主题或多栏**：重启 DSH，刷新页面，检查 Plugins 四个包都已启用。
 - **版本兼容提示**：本项目实际验证的是 `0.2.1-rc.5`。升级 DSH 后需重新检查插件；不要跳过官方版本检查。
 - **多栏中主题按钮消失**：为避免遮挡第三栏，主题浮动按钮被隐藏；使用 Settings → General → 视觉协议。
 - **新电脑没有旧对话**：本发布包只部署功能；账号、会话和科研状态留在原电脑，需要单独管理自己的私人数据迁移。
+
+Oxford 离线编译与原生驱动绑定见 [仪器工作台](../oxford/README.md)。仅为仪器接入时才需要配置本机 Oxford。

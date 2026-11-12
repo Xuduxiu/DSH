@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 import { parseArgs } from 'node:util'
 
-export const bundles = ['plugin', 'arknights-ui', 'multiview']
+export const bundles = ['plugin', 'arknights-ui', 'multiview', 'oxford']
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const json = path => JSON.parse(readFileSync(path, 'utf8').replace(/^\uFEFF/, ''))
 

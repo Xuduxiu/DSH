@@ -1,8 +1,8 @@
 {
   "name": "@local/dsh-arknights-ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Arknights / Endfield visual protocol for the DSH Web GUI: Rhodes Island daylight, Rhodes Island night, and Endfield frosted glass.",
+  "description": "Four DSH workspace themes: Rhodes Island Day, Rhodes Island Night, Endfield Glass and xLab Console.",
   "type": "module",
   "icon": "./icon.svg",
   "exports": {
